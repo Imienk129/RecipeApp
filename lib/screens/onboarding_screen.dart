@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/constants/images_path.dart';
+import 'package:recipe_app/screens/home.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({super.key});
@@ -67,7 +68,14 @@ class OnBoardingScreen extends StatelessWidget {
                         SizedBox(
                           width: w * .8,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const Home(),
+                                ),
+                              );
+                            },
                             child: const Text(
                               "Mulai",
                               style: TextStyle(
