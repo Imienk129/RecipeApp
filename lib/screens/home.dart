@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/component/bottom_nav_bar.dart';
+import 'package:recipe_app/screens/home_screen.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -49,7 +50,7 @@ class _HomeState extends State<Home> {
         },
         physics: const NeverScrollableScrollPhysics(),
         children: const [
-          Center(child: Text('page1')),
+          HomePage(),
           Center(child: Text('page2')),
           Center(child: Text('page3')),
           Center(child: Text('page4')),
