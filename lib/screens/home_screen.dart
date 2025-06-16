@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/component/home_app_bar.dart';
+import 'package:recipe_app/component/tab_bar_widget.dart';
 import 'package:recipe_app/component/text_field_widget.dart';
 import 'package:recipe_app/constants/images_path.dart';
 
@@ -45,8 +46,11 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     const Text('Lihat semua'),
+                    SizedBox(width: w * .022),
                   ],
                 ),
+                SizedBox(height: h * 022),
+                const TabBarWidget(),
               ],
             ),
           ),

@@ -20,7 +20,21 @@ class TextFieldWidget extends StatelessWidget {
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
-          hintText: "Masakan apa yang kamu pikirkan..?",
+          hintText: "Masakan apa yang anda pikirkan..?",
+          hintStyle: TextStyle(color: Colors.grey, fontSize: w * .03),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide.none,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          suffixIcon: Icon(
+            Icons.search,
+            color: Colors.deepOrangeAccent,
+            size: w * .07,
+          ),
         ),
       ),
     );
