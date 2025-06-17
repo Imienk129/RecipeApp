@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/component/home_app_bar.dart';
 import 'package:recipe_app/component/tab_bar_widget.dart';
-import 'package:recipe_app/component/text_field_widget.dart';
 import 'package:recipe_app/constants/images_path.dart';
 
 class HomePage extends StatelessWidget {
@@ -11,49 +10,43 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final h = MediaQuery.of(context).size.height;
     final w = MediaQuery.of(context).size.width;
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(14),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const HomeAppBar(),
-                SizedBox(height: h * 0.022),
-                TextFieldWidget(),
-                SizedBox(height: h * 0.022),
-                Container(
-                  height: h * .25,
-                  width: w,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(ImagesPath.explore),
-                      fit: BoxFit.fill,
-                    ),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
+
+    return SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.all(w * 0.04),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const HomeAppBar(),
+            const SizedBox(height: 10),
+
+            // Gambar Explore
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.asset(
+                ImagesPath.explore,
+                height: h * 0.25,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+            ),
+
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                Text(
+                  "Kategori",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
-                SizedBox(height: h * .023),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Kategori",
-                      style: TextStyle(
-                        fontSize: w * .045,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const Text('Lihat semua'),
-                    SizedBox(width: w * .022),
-                  ],
-                ),
-                SizedBox(height: h * 022),
-                const TabBarWidget(),
+                Text("Lihat semua", style: TextStyle(color: Colors.red)),
               ],
             ),
-          ),
+
+            const SizedBox(height: 10),
+
+            const TabBarWidget(),
+          ],
         ),
       ),
     );

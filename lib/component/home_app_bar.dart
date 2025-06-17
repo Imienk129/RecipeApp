@@ -9,10 +9,10 @@ class HomeAppBar extends StatelessWidget {
     return Row(
       children: [
         Text(
-          "Apa yang akan kamu\nmasak hari ini?",
+          "Apa yang akan anda\nmasak hari ini?",
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: w * .06,
+            fontSize: w * .07,
             height: 1,
           ),
         ),
