@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe_app/component/bottom_nav_bar.dart';
 import 'package:recipe_app/component/text_field_widget.dart';
 import 'package:recipe_app/screens/categori_screen.dart';
+import 'package:recipe_app/screens/favorite_screen.dart';
 import 'package:recipe_app/screens/home_screen.dart';
 
 class Home extends StatefulWidget {
@@ -55,7 +56,7 @@ class _HomeState extends State<Home> {
           HomePage(),
           AllCategoriesScreen(),
           TextFieldWidget(),
-          Center(child: Text('page4')),
+          FavoriteScreen(favorites: []),
         ],
       ),
     );

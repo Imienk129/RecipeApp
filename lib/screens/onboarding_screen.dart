@@ -29,7 +29,6 @@ class OnBoardingScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Center(child: Image.asset(ImagesPath.onBoardingTitle)),
             Positioned(
               bottom: 0,
               child: Container(
@@ -76,10 +75,21 @@ class OnBoardingScreen extends StatelessWidget {
                                 ),
                               );
                             },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              side: const BorderSide(
+                                color: Color.fromARGB(112, 219, 125, 63),
+                                width: 2,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              padding: const EdgeInsets.symmetric(vertical: 14),
+                            ),
                             child: const Text(
                               "Mulai",
                               style: TextStyle(
-                                color: Colors.black,
+                                color: Color.fromARGB(255, 224, 151, 56),
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

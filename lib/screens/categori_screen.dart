@@ -9,101 +9,112 @@ class AllCategoriesScreen extends StatefulWidget {
 }
 
 class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
-  String selectedCategory = "Breakfast";
+  final categories = ["Sarapan", "Makan Siang", "Makan Malam", "Cepat Saji"];
+  final apiMap = {
+    "Sarapan": "Breakfast",
+    "Makan Siang": "Chicken",
+    "Makan Malam": "Beef",
+    "Cepat Saji": "Burger",
+  };
 
   @override
   Widget build(BuildContext context) {
-    final categories = ["Breakfast", "Lunch", "Dinner", "Fast food"];
-    final apiMap = {
-      "Breakfast": "Breakfast",
-      "Lunch": "Chicken",
-      "Dinner": "Beef",
-      "Fast food": "Burger",
-    };
-
     return Scaffold(
       appBar: AppBar(title: const Text("Kategori")),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 60,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: categories.length,
-              itemBuilder: (context, index) {
-                final cat = categories[index];
-                final isSelected = selectedCategory == cat;
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedCategory = cat;
-                    });
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 10,
-                    ),
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    decoration: BoxDecoration(
-                      color: isSelected ? Colors.red : Colors.white,
-                      borderRadius: BorderRadius.circular(25),
-                      border: Border.all(color: Colors.red),
-                    ),
-                    child: Center(
-                      child: Text(
-                        cat,
-                        style: TextStyle(
-                          color: isSelected ? Colors.white : Colors.red,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+      body: ListView.builder(
+        itemCount: categories.length,
+        itemBuilder: (context, index) {
+          final category = categories[index];
+          final apiQuery = apiMap[category]!;
+
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  category,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
                   ),
-                );
-              },
-            ),
-          ),
+                ),
+                const SizedBox(height: 8),
 
-          // Data dari API
-          Expanded(
-            child: FutureBuilder<List<Map<String, dynamic>>>(
-              future: ConstantFunction.getResponse(apiMap[selectedCategory]!),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return const Center(child: Text("Tidak ada data"));
-                }
+                // FutureBuilder untuk ambil data dari API
+                SizedBox(
+                  height: 200,
+                  child: FutureBuilder<List<Map<String, dynamic>>>(
+                    future: ConstantFunction.getResponse(apiQuery),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                        return const Center(child: Text("Tidak ada data"));
+                      }
 
-                final data = snapshot.data!;
-                return ListView.builder(
-                  padding: const EdgeInsets.all(10),
-                  itemCount: data.length,
-                  itemBuilder: (context, index) {
-                    final item = data[index];
-                    return Card(
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      child: ListTile(
-                        leading: Image.network(
-                          item['image'],
-                          width: 50,
-                          height: 50,
-                          fit: BoxFit.cover,
-                        ),
-                        title: Text(item['label']),
-                        subtitle: Text(
-                          "Calories: ${item['calories']}, Time: ${item['totalTime']} min",
-                        ),
-                      ),
-                    );
-                  },
-                );
-              },
+                      final data = snapshot.data!;
+                      return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: data.length,
+                        itemBuilder: (context, index) {
+                          final item = data[index];
+                          return Container(
+                            width: 160,
+                            margin: const EdgeInsets.only(right: 12),
+                            child: Card(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.network(
+                                      item['image'],
+                                      width: double.infinity,
+                                      height: 100,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          item['label'],
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Text(
+                                          "Calories: ${item['calories'].toStringAsFixed(0)}",
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
+                                        Text(
+                                          "Time: ${item['totalTime']} min",
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
