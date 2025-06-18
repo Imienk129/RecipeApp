@@ -19,8 +19,6 @@ class HomePage extends StatelessWidget {
           children: [
             const HomeAppBar(),
             const SizedBox(height: 10),
-
-            // Gambar Explore
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image.asset(

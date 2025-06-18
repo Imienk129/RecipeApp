@@ -56,7 +56,7 @@ class _HomeState extends State<Home> {
           HomePage(),
           AllCategoriesScreen(),
           TextFieldWidget(),
-          FavoriteScreen(favorites: []),
+          FavoriteScreen(),
         ],
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/constants/constant_function.dart';
+import 'package:recipe_app/constants/favorite_list.dart';
 
 class AllCategoriesScreen extends StatefulWidget {
   const AllCategoriesScreen({super.key});
@@ -16,6 +17,20 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
     "Makan Malam": "Beef",
     "Cepat Saji": "Burger",
   };
+
+  bool isFavorited(Map<String, dynamic> item) {
+    return favoriteList.any((fav) => fav['label'] == item['label']);
+  }
+
+  void toggleFavorite(Map<String, dynamic> item) {
+    setState(() {
+      if (isFavorited(item)) {
+        favoriteList.removeWhere((fav) => fav['label'] == item['label']);
+      } else {
+        favoriteList.add(item);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +57,8 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                 ),
                 const SizedBox(height: 8),
 
-                // FutureBuilder untuk ambil data dari API
                 SizedBox(
-                  height: 200,
+                  height: 240,
                   child: FutureBuilder<List<Map<String, dynamic>>>(
                     future: ConstantFunction.getResponse(apiQuery),
                     builder: (context, snapshot) {
@@ -98,6 +112,21 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                                         Text(
                                           "Time: ${item['totalTime']} min",
                                           style: const TextStyle(fontSize: 12),
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Align(
+                                          alignment: Alignment.centerRight,
+                                          child: IconButton(
+                                            icon: Icon(
+                                              isFavorited(item)
+                                                  ? Icons.favorite
+                                                  : Icons.favorite_border,
+                                              color: Colors.red,
+                                            ),
+                                            onPressed: () {
+                                              toggleFavorite(item);
+                                            },
+                                          ),
                                         ),
                                       ],
                                     ),

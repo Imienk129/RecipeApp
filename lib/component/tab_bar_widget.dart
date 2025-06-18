@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/constants/constant_function.dart';
+import 'package:recipe_app/constants/favorite_list.dart';
 
 class TabBarWidget extends StatelessWidget {
   const TabBarWidget({super.key});
@@ -36,7 +37,7 @@ class TabBarWidget extends StatelessWidget {
           ),
           SizedBox(height: h * .02),
           SizedBox(
-            height: h * 0.35,
+            height: h * 0.4, // tambahkan tinggi agar muat tombol favorite
             child: const TabBarView(
               children: [
                 HomeTabBarView(recipe: 'Chicken'),
@@ -71,9 +72,28 @@ class TabItem extends StatelessWidget {
   }
 }
 
-class HomeTabBarView extends StatelessWidget {
+class HomeTabBarView extends StatefulWidget {
   final String recipe;
   const HomeTabBarView({super.key, required this.recipe});
+
+  @override
+  State<HomeTabBarView> createState() => _HomeTabBarViewState();
+}
+
+class _HomeTabBarViewState extends State<HomeTabBarView> {
+  bool isFavorited(Map<String, dynamic> item) {
+    return favoriteList.any((fav) => fav['label'] == item['label']);
+  }
+
+  void toggleFavorite(Map<String, dynamic> item) {
+    setState(() {
+      if (isFavorited(item)) {
+        favoriteList.removeWhere((fav) => fav['label'] == item['label']);
+      } else {
+        favoriteList.add(item);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +101,7 @@ class HomeTabBarView extends StatelessWidget {
     final w = MediaQuery.of(context).size.width;
 
     return FutureBuilder<List<Map<String, dynamic>>>(
-      future: ConstantFunction.getResponse(recipe),
+      future: ConstantFunction.getResponse(widget.recipe),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -106,16 +126,30 @@ class HomeTabBarView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    width: w,
-                    height: h * 0.18,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      image: DecorationImage(
-                        image: NetworkImage(snap['image']),
-                        fit: BoxFit.cover,
+                  Stack(
+                    alignment: Alignment.topRight,
+                    children: [
+                      Container(
+                        width: w,
+                        height: h * 0.18,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          image: DecorationImage(
+                            image: NetworkImage(snap['image']),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
-                    ),
+                      IconButton(
+                        icon: Icon(
+                          isFavorited(snap)
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          color: Colors.red,
+                        ),
+                        onPressed: () => toggleFavorite(snap),
+                      ),
+                    ],
                   ),
                   SizedBox(height: h * 0.01),
                   Text(
@@ -127,7 +161,7 @@ class HomeTabBarView extends StatelessWidget {
                   ),
                   SizedBox(height: h * 0.005),
                   Text(
-                    "Kalori: ${snap['calories']} • Waktu: ${snap['totalTime']} menit",
+                    "Kalori: ${snap['calories'].toStringAsFixed(0)} • Waktu: ${snap['totalTime']} menit",
                     style: TextStyle(fontSize: w * 0.03, color: Colors.grey),
                   ),
                 ],
