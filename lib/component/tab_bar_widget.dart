@@ -37,7 +37,7 @@ class TabBarWidget extends StatelessWidget {
           ),
           SizedBox(height: h * .02),
           SizedBox(
-            height: h * 0.4, // tambahkan tinggi agar muat tombol favorite
+            height: h * 0.43,
             child: const TabBarView(
               children: [
                 HomeTabBarView(recipe: 'Chicken'),
@@ -118,57 +118,87 @@ class _HomeTabBarViewState extends State<HomeTabBarView> {
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.only(left: 10),
           itemCount: data.length,
+          separatorBuilder: (context, index) => const SizedBox(width: 10),
           itemBuilder: (context, index) {
             final snap = data[index];
             return Container(
-              width: w * 0.6,
-              margin: const EdgeInsets.only(right: 10),
+              width: w * 0.4,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 3,
+                    offset: Offset(1, 1),
+                  ),
+                ],
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Stack(
-                    alignment: Alignment.topRight,
-                    children: [
-                      Container(
-                        width: w,
-                        height: h * 0.18,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          image: DecorationImage(
-                            image: NetworkImage(snap['image']),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          isFavorited(snap)
-                              ? Icons.favorite
-                              : Icons.favorite_border,
-                          color: Colors.red,
-                        ),
-                        onPressed: () => toggleFavorite(snap),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: h * 0.01),
-                  Text(
-                    snap['label'],
-                    style: TextStyle(
-                      fontSize: w * 0.035,
-                      fontWeight: FontWeight.bold,
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                    ),
+                    child: Image.network(
+                      snap['image'],
+                      height: h * 0.18,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  SizedBox(height: h * 0.005),
-                  Text(
-                    "Kalori: ${snap['calories'].toStringAsFixed(0)} • Waktu: ${snap['totalTime']} menit",
-                    style: TextStyle(fontSize: w * 0.03, color: Colors.grey),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6.0,
+                      vertical: 4,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            snap['label'],
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          icon: Icon(
+                            isFavorited(snap)
+                                ? Icons.bookmark
+                                : Icons.bookmark_border,
+                            color: Colors.deepOrange,
+                            size: 18,
+                          ),
+                          onPressed: () => toggleFavorite(snap),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                    child: Text(
+                      "${snap['calories'].toStringAsFixed(0)} cal",
+                      style: const TextStyle(fontSize: 9, color: Colors.grey),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                    child: Text(
+                      "${snap['totalTime']} min",
+                      style: const TextStyle(fontSize: 9, color: Colors.grey),
+                    ),
                   ),
                 ],
               ),
             );
           },
-          separatorBuilder: (context, index) => const SizedBox(width: 10),
         );
       },
     );
