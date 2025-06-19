@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/constants/constant_function.dart';
 import 'package:recipe_app/constants/favorite_list.dart';
+import 'package:recipe_app/screens/recipe_detail_screen.dart';
 
 class TabBarWidget extends StatelessWidget {
   const TabBarWidget({super.key});
@@ -120,81 +121,91 @@ class _HomeTabBarViewState extends State<HomeTabBarView> {
           separatorBuilder: (context, index) => const SizedBox(width: 10),
           itemBuilder: (context, index) {
             final snap = data[index];
-            return Container(
-              width: w * 0.4,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 3,
-                    offset: Offset(1, 1),
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => RecipeDetailScreen(recipe: snap),
                   ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10),
+                );
+              },
+              child: Container(
+                width: w * 0.4,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(1, 1),
                     ),
-                    child: Image.network(
-                      snap['image'],
-                      height: h * 0.18,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
+                      ),
+                      child: Image.network(
+                        snap['image'],
+                        height: h * 0.18,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 6.0,
-                      vertical: 4,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            snap['label'],
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6.0,
+                        vertical: 4,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              snap['label'],
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            isFavorited(snap)
-                                ? Icons.bookmark
-                                : Icons.bookmark_border,
-                            color: const Color.fromARGB(255, 248, 142, 43),
-                            size: 18,
+                          IconButton(
+                            icon: Icon(
+                              isFavorited(snap)
+                                  ? Icons.bookmark
+                                  : Icons.bookmark_border,
+                              color: const Color.fromARGB(255, 248, 142, 43),
+                              size: 18,
+                            ),
+                            onPressed: () => toggleFavorite(snap),
                           ),
-                          onPressed: () => toggleFavorite(snap),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                    child: Text(
-                      "${snap['calories'].toStringAsFixed(0)} cal",
-                      style: const TextStyle(fontSize: 9, color: Colors.grey),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                      child: Text(
+                        "${snap['calories'].toStringAsFixed(0)} cal",
+                        style: const TextStyle(fontSize: 9, color: Colors.grey),
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                    child: Text(
-                      "${snap['totalTime']} min",
-                      style: const TextStyle(fontSize: 9, color: Colors.grey),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                      child: Text(
+                        "${snap['totalTime']} min",
+                        style: const TextStyle(fontSize: 9, color: Colors.grey),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             );
           },

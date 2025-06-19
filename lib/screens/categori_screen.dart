@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/constants/constant_function.dart';
 import 'package:recipe_app/constants/favorite_list.dart';
+import 'package:recipe_app/screens/recipe_detail_screen.dart';
 
 class AllCategoriesScreen extends StatefulWidget {
   const AllCategoriesScreen({super.key});
@@ -52,13 +53,12 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: const Color.fromARGB(255, 248, 142, 43),
+                    color: Color.fromARGB(255, 248, 142, 43),
                   ),
                 ),
                 const SizedBox(height: 8),
-
                 SizedBox(
-                  height: 240,
+                  height: 200,
                   child: FutureBuilder<List<Map<String, dynamic>>>(
                     future: ConstantFunction.getResponse(apiQuery),
                     builder: (context, snapshot) {
@@ -74,46 +74,74 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                         itemCount: data.length,
                         itemBuilder: (context, index) {
                           final item = data[index];
-                          return Container(
-                            width: 150,
-                            margin: const EdgeInsets.only(right: 12),
-                            child: Card(
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder:
+                                      (_) => RecipeDetailScreen(recipe: item),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              width: 120,
+                              margin: const EdgeInsets.only(right: 10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.white,
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.black12,
+                                    blurRadius: 2,
+                                    offset: Offset(1, 1),
+                                  ),
+                                ],
+                              ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
+                                    borderRadius: const BorderRadius.vertical(
+                                      top: Radius.circular(10),
+                                    ),
                                     child: Image.network(
                                       item['image'],
+                                      height: 70,
                                       width: double.infinity,
-                                      height: 90,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(6),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           item['label'],
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
                                           style: const TextStyle(
+                                            fontSize: 10,
                                             fontWeight: FontWeight.bold,
                                           ),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
                                         ),
-                                        const SizedBox(height: 4),
+                                        const SizedBox(height: 2),
                                         Text(
-                                          "Calories: ${item['calories'].toStringAsFixed(0)}",
-                                          style: const TextStyle(fontSize: 12),
+                                          "Kal: ${item['calories'].toStringAsFixed(0)}",
+                                          style: const TextStyle(
+                                            fontSize: 9,
+                                            color: Colors.grey,
+                                          ),
                                         ),
                                         Text(
-                                          "Time: ${item['totalTime']} min",
-                                          style: const TextStyle(fontSize: 12),
+                                          "Wkt: ${item['totalTime']} m",
+                                          style: const TextStyle(
+                                            fontSize: 9,
+                                            color: Colors.grey,
+                                          ),
                                         ),
-                                        const SizedBox(height: 4),
                                         Align(
                                           alignment: Alignment.centerRight,
                                           child: IconButton(
@@ -127,10 +155,10 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                                                 142,
                                                 43,
                                               ),
+                                              size: 16,
                                             ),
-                                            onPressed: () {
-                                              toggleFavorite(item);
-                                            },
+                                            onPressed:
+                                                () => toggleFavorite(item),
                                           ),
                                         ),
                                       ],

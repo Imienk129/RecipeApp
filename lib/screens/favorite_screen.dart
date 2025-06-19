@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/constants/favorite_list.dart';
+import 'package:recipe_app/screens/recipe_detail_screen.dart';
 
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({super.key});
@@ -27,11 +28,22 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                 itemBuilder: (context, index) {
                   final item = favoriteList[index];
                   return ListTile(
-                    leading: Image.network(
-                      item['image'],
-                      width: 50,
-                      height: 50,
-                      fit: BoxFit.cover,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => RecipeDetailScreen(recipe: item),
+                        ),
+                      );
+                    },
+                    leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.network(
+                        item['image'],
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     title: Text(item['label']),
                     subtitle: Text(

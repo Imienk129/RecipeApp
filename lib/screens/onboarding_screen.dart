@@ -49,7 +49,7 @@ class OnBoardingScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          "Cepatan beli Segera",
+                          "Resep Makanan",
                           style: TextStyle(
                             fontSize: w * .06,
                             fontWeight: FontWeight.w600,
@@ -57,7 +57,7 @@ class OnBoardingScreen extends StatelessWidget {
                         ),
                         SizedBox(height: h * .01),
                         const Text(
-                          "Sebelum makanan Habis karena kuota terbatas!",
+                          "Ciptakan masakanmu menjadi lebih berasa..!",
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w200,

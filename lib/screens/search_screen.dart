@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/constants/constant_function.dart';
+import 'package:recipe_app/screens/recipe_detail_screen.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -30,7 +31,6 @@ class _SearchScreenState extends State<SearchScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Search TextField
             Padding(
               padding: EdgeInsets.only(top: h * 0.06),
               child: Container(
@@ -74,9 +74,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ),
             ),
-
             const SizedBox(height: 50),
-
             if (_searchResults == null)
               Center(
                 child: Column(
@@ -117,21 +115,31 @@ class _SearchScreenState extends State<SearchScreen> {
                     itemCount: data.length,
                     itemBuilder: (context, index) {
                       final item = data[index];
-                      return Card(
-                        margin: const EdgeInsets.symmetric(vertical: 8),
-                        child: ListTile(
-                          leading: ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.network(
-                              item['image'],
-                              width: 50,
-                              height: 50,
-                              fit: BoxFit.cover,
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => RecipeDetailScreen(recipe: item),
                             ),
-                          ),
-                          title: Text(item['label']),
-                          subtitle: Text(
-                            "Kalori: ${item['calories'].toStringAsFixed(0)} • Waktu: ${item['totalTime']} min",
+                          );
+                        },
+                        child: Card(
+                          margin: const EdgeInsets.symmetric(vertical: 8),
+                          child: ListTile(
+                            leading: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.network(
+                                item['image'],
+                                width: 50,
+                                height: 50,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            title: Text(item['label']),
+                            subtitle: Text(
+                              "Kalori: ${item['calories'].toStringAsFixed(0)} • Waktu: ${item['totalTime']} min",
+                            ),
                           ),
                         ),
                       );
