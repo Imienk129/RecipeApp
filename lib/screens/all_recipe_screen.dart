@@ -144,8 +144,8 @@ class _AllRecipeScreenState extends State<AllRecipeScreen> {
                             isFavorited(item)
                                 ? Icons.bookmark
                                 : Icons.bookmark_border,
-                            color: Colors.deepOrange,
-                            size: 18, // lebih kecil dari sebelumnya
+                            color: const Color.fromARGB(255, 248, 142, 43),
+                            size: 18,
                           ),
                         ),
                       ),

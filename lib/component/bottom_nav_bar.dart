@@ -16,7 +16,7 @@ class BottomNavBar extends StatelessWidget {
       currentIndex: selectedIndex,
       onTap: onTap,
       type: BottomNavigationBarType.fixed,
-      selectedItemColor: Colors.red,
+      selectedItemColor: const Color.fromARGB(255, 248, 142, 43),
       unselectedItemColor: Colors.grey,
       items: [
         BottomNavigationBarItem(icon: Icon(Icons.home), label: "Beranda"),

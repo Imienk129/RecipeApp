@@ -52,7 +52,7 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.red,
+                    color: const Color.fromARGB(255, 248, 142, 43),
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -121,7 +121,12 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                                               isFavorited(item)
                                                   ? Icons.bookmark
                                                   : Icons.bookmark_border,
-                                              color: Colors.red,
+                                              color: const Color.fromARGB(
+                                                255,
+                                                248,
+                                                142,
+                                                43,
+                                              ),
                                             ),
                                             onPressed: () {
                                               toggleFavorite(item);

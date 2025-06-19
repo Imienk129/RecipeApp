@@ -65,7 +65,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     suffixIcon: IconButton(
                       icon: Icon(
                         Icons.search,
-                        color: Colors.deepOrangeAccent,
+                        color: const Color.fromARGB(255, 248, 142, 43),
                         size: w * .07,
                       ),
                       onPressed: _onSearch,
@@ -84,7 +84,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     Icon(
                       Icons.search,
                       size: h * 0.20,
-                      color: Colors.deepOrangeAccent,
+                      color: const Color.fromARGB(255, 248, 142, 43),
                     ),
                     const SizedBox(height: 15),
                     const Text(

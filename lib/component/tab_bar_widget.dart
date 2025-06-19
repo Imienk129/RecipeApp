@@ -16,14 +16,14 @@ class TabBarWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            color: Colors.white,
+            color: const Color.fromARGB(0, 255, 255, 255),
             height: h * .05,
             child: TabBar(
-              unselectedLabelColor: Colors.red,
+              unselectedLabelColor: const Color.fromARGB(255, 248, 142, 43),
               labelColor: Colors.white,
               dividerColor: Colors.white,
               indicator: BoxDecoration(
-                color: Colors.red,
+                color: const Color.fromARGB(255, 248, 142, 43),
                 borderRadius: BorderRadius.circular(20),
               ),
               labelPadding: EdgeInsets.symmetric(horizontal: w * .012),
@@ -60,7 +60,7 @@ class TabItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.red),
+        border: Border.all(color: const Color.fromARGB(255, 240, 147, 26)),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Padding(
@@ -172,7 +172,7 @@ class _HomeTabBarViewState extends State<HomeTabBarView> {
                             isFavorited(snap)
                                 ? Icons.bookmark
                                 : Icons.bookmark_border,
-                            color: Colors.deepOrange,
+                            color: const Color.fromARGB(255, 248, 142, 43),
                             size: 18,
                           ),
                           onPressed: () => toggleFavorite(snap),

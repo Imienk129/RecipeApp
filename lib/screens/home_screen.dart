@@ -48,13 +48,13 @@ class HomePage extends StatelessWidget {
                   },
                   child: const Text(
                     "Lihat semua",
-                    style: TextStyle(color: Colors.red),
+                    style: TextStyle(color: Color.fromARGB(255, 248, 142, 43)),
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 10),
-            const Expanded(child: TabBarWidget()), // 👈 solusinya di sini
+            const Expanded(child: TabBarWidget()),
           ],
         ),
       ),
