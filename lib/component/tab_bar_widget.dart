@@ -36,9 +36,8 @@ class TabBarWidget extends StatelessWidget {
             ),
           ),
           SizedBox(height: h * .02),
-          SizedBox(
-            height: h * 0.43,
-            child: const TabBarView(
+          Expanded(
+            child: TabBarView(
               children: [
                 HomeTabBarView(recipe: 'Chicken'),
                 HomeTabBarView(recipe: 'Beef'),

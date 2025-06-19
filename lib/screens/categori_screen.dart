@@ -43,7 +43,7 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
           final apiQuery = apiMap[category]!;
 
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -75,7 +75,7 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                         itemBuilder: (context, index) {
                           final item = data[index];
                           return Container(
-                            width: 160,
+                            width: 150,
                             margin: const EdgeInsets.only(right: 12),
                             child: Card(
                               child: Column(
@@ -86,7 +86,7 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                                     child: Image.network(
                                       item['image'],
                                       width: double.infinity,
-                                      height: 100,
+                                      height: 90,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -119,8 +119,8 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                                           child: IconButton(
                                             icon: Icon(
                                               isFavorited(item)
-                                                  ? Icons.favorite
-                                                  : Icons.favorite_border,
+                                                  ? Icons.bookmark
+                                                  : Icons.bookmark_border,
                                               color: Colors.red,
                                             ),
                                             onPressed: () {
