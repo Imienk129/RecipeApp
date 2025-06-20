@@ -54,7 +54,9 @@ class _AllRecipeScreenState extends State<AllRecipeScreen> {
     final w = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Semua Resep')),
+      appBar: AppBar(
+        title: const Text('Semua Resep', style: TextStyle(fontSize: 17)),
+      ),
       body: FutureBuilder<List<Map<String, dynamic>>>(
         future: _recipesFuture,
         builder: (context, snapshot) {

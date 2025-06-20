@@ -43,8 +43,7 @@ class _HomePageState extends State<HomePage> {
 
     if (result.isNotEmpty) {
       setState(() {
-        _images =
-            result.take(5).toList(); // Ambil 5 resep acak dari semua kategori
+        _images = result.take(10).toList();
       });
       startAutoScroll();
     }

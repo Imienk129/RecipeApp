@@ -12,7 +12,7 @@ class HomeAppBar extends StatelessWidget {
           "Apa yang akan anda\nmasak hari ini?",
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: w * .07,
+            fontSize: 19,
             height: 1,
           ),
         ),
